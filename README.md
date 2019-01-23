@@ -5,41 +5,68 @@ In database link there are two parts, host and site. First we need to switch off
 
 
 Database Tables (Global Schema):  
+
 stadium (stadium_name, city, capacity) 
+
 coach (coach_id,nationality, coach_name) 
+
 team (team_id, team_name,coach_id, stadium_name)  
+
 team_stats(team_id,season,position) 
+
 referee (ref_id, ref_name, nationality) 
+
 time_slot(time_slot_id,start_time)
+
 player (player_id,player_name, nationality, weight, height, date_of_birth, player_position, team_id)
+
 player_stats (player_id, p_season, apps, goals, assists, own_goals, yellow_card, red_card)
+
 matchplay (match_id, score, stadium_name, ref_id, home_team_id, away_team_id)
+
 match_details (match_id, home_pos, away_pos, home_goals, away_goals, home_fouls, away_fouls)
+
 schedules (match_id, time_slot_id, paly_date)
+
 fouls (player_id, team_id, match_id, foul_time, card_type)
+
 goals (player_id, team_id, match_id, goal_time)
+
 point_table (point_table_id, apps, wins, draw, loses, points)
 
 Fragmentation Schema:
 
 coach1 = SL nationality = 'Spanish' PJ coach_id,nationality, coach_name (coach)
+
 coach2 = SL nationality != 'Spanish' PJ coach_id,nationality, coach_name (coach)
+
 player1 = SL team_id = 4 PJ player_id,player_name, nationality, weight, height, date_of_birth, player_position, team_id (player)
+
 player2= SL team_id =15 PJ player_id,player_name, nationality, weight, height, date_of_birth, player_position, team_id (player)
+
 refree1 = SL nationality = 'Spanish' PJ ref_id, ref_name, nationality (refree)
+
 refree2 = SL nationality != 'Spanish' PJ ref_id, ref_name, nationality (refree)
+
 stadiun1 = SL capacity >= 50000 PJ stadium_name, city, capacity (stadium)
+
 stadiun2 = SL capacity < 50000 PJ stadium_name, city, capacity (stadium)
+
 team1 = PJ team_id, team_name, coach_id, city (team JN stadium_name = stadium_name stadium1)
+
 team2 = PJ team_id, stadium_name, capacity (team JN stadium_name = stadium_name stadium1)
+
 
 Functions and Procedures:
 In our project we have created 7 functions and procedures to perform different tasks. In what purpose we use which functions and procedures are given below.
 
 Procedures:
 1.	Displays the performance of the given team name : findTeamStat(tname)
+
 2.	Displays list of coaches and their team name by  given nationality: coach_pro(c_nation)
+
 3.	Displays the name of the player by given team name and player position : player_pro(pla_pos,tname2)
+
 4.	Displays the upcoming matches next to the given date: up_pro(p_date)
 
 Functions:
